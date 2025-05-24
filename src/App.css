@@ -1,0 +1,208 @@
+/* Enhanced Grid Background CSS - Replace your existing .grid-background */
+.grid-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+  
+  .grid-background .grid-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%;
+    height: 200%;
+    transform: translate(-50%, -50%) rotateX(60deg) translateZ(-100px);
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .grid-background .grid-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(100, 200, 255, 0.25) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(100, 200, 255, 0.25) 1px, transparent 1px),
+      linear-gradient(rgba(255, 150, 100, 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 150, 100, 0.15) 1px, transparent 1px);
+    background-size: 40px 40px, 40px 40px, 80px 80px, 80px 80px;
+    background-position: 0 0, 0 0, 20px 20px, 20px 20px;
+    animation: gridFlow 20s linear infinite;
+  }
+  
+  .grid-background .grid-layer:nth-child(1) {
+    transform: translateZ(0px);
+    opacity: 1;
+  }
+  
+  .grid-background .grid-layer:nth-child(2) {
+    transform: translateZ(-50px);
+    opacity: 0.7;
+    animation-delay: -5s;
+  }
+  
+  .grid-background .grid-layer:nth-child(3) {
+    transform: translateZ(-100px);
+    opacity: 0.5;
+    animation-delay: -10s;
+  }
+  
+  .grid-background .grid-layer:nth-child(4) {
+    transform: translateZ(-150px);
+    opacity: 0.3;
+    animation-delay: -15s;
+  }
+  
+  @keyframes gridFlow {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(-40px, -40px);
+    }
+  }
+  
+  .grid-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 20%,
+      rgba(0, 0, 0, 0.4) 60%,
+      rgba(0, 0, 0, 0.9) 100%
+    );
+    z-index: 1;
+  }
+  
+  .grid-background::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 2;
+  }
+  
+  /* Meteor Effects */
+  .grid-background .meteor {
+    position: absolute;
+    width: 2px;
+    height: 120px;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(255, 255, 255, 0.9) 20%,
+      rgba(0, 255, 255, 0.8) 40%,
+      rgba(100, 200, 255, 0.6) 60%,
+      transparent
+    );
+    border-radius: 50%;
+    animation: meteorFall 4s linear infinite;
+    z-index: 1;
+    filter: blur(0.3px);
+    box-shadow: 
+      0 0 8px rgba(0, 255, 255, 0.6),
+      0 0 15px rgba(0, 255, 255, 0.4);
+  }
+  
+  .grid-background .meteor::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 3px;
+    background: radial-gradient(circle, #ffffff, #00ffff);
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ffff, 0 0 15px #ffffff;
+  }
+  
+  @keyframes meteorFall {
+    0% {
+      transform: translateX(-10vw) translateY(-10vh) rotate(135deg);
+      opacity: 0;
+    }
+    15% {
+      opacity: 1;
+    }
+    85% {
+      opacity: 1;
+    }
+    100% {
+      transform: translateX(110vw) translateY(110vh) rotate(135deg);
+      opacity: 0;
+    }
+  }
+  
+  /* Sparkle Effects */
+  .grid-background .sparkle {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 50%;
+    animation: sparkleShine 2s ease-in-out infinite;
+    z-index: 4;
+    box-shadow: 0 0 8px #ffffff, 0 0 12px #00ffff;
+  }
+  
+  @keyframes sparkleShine {
+    0%, 100% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.5);
+    }
+  }
+  
+  /* Interactive nodes */
+  .grid-background .node {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #00ffff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    animation: pulse 2s ease-in-out infinite;
+    z-index: 3;
+    transition: all 0.3s ease;
+    pointer-events: auto;
+  }
+  
+  .grid-background .node:hover {
+    transform: scale(3);
+    box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.5);
+    }
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .grid-background .grid-container {
+      transform: translate(-50%, -50%) rotateX(45deg) translateZ(-50px);
+    }
+  }
